@@ -121,6 +121,14 @@ export default function Page(){
                     </div>
                 </div>
             </section>
+            <section id='skills' className="mb-8">
+                <h2 className="text-2xl font-semibold mb-4">Habilidades</h2>
+                <ul className="list-disc ml-5 text-gray-800">
+                {portfolio.skills.map((skill, index) => (
+                    <li key={index}>{skill}</li>
+                ))}
+                </ul>
+            </section>
             <section id='projects' className="mb-8">
                 <h2 className="text-2xl font-semibold mb-4">Projetos</h2>
                 {portfolio.projects.map((item, index) => (
@@ -131,14 +139,6 @@ export default function Page(){
                         <a href={item.link} className="text-blue-600 underline" target="_blank" rel="noopener noreferrer">Visitar</a>
                     </div>
                 ))}
-            </section>
-            <section id='skills' className="mb-8">
-                <h2 className="text-2xl font-semibold mb-4">Habilidades</h2>
-                <ul className="list-disc ml-5 text-gray-800">
-                {portfolio.skills.map((skill, index) => (
-                    <li key={index}>{skill}</li>
-                ))}
-                </ul>
             </section>
             <section id='experiences' className="mb-8">
                 <h2 className="text-2xl font-semibold mb-4">Experiência de Trabalho</h2>
