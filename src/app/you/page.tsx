@@ -138,12 +138,12 @@ export default function Page(){
             <section id='projects' className="mb-8">
                 <h2 className="text-2xl font-semibold mb-4">Projetos</h2>
                 {portfolio.projects.map((item, index) => (
-                    <div key={index} className="mb-6 p-4 border rounded-lg shadow-sm">
+                    <article key={index} className="mb-6 p-4 border rounded-lg shadow-sm">
                         <h3 className="text-xl font-bold mb-2">{item.title}</h3>
                         <p className="text-gray-700 mb-2">{item.description}</p>
                         <p className="text-gray-600 mb-2"><b>Tecnologias</b>: {item.techs.join(', ')}</p>
                         <a href={item.link} className="text-blue-600 underline" target="_blank" rel="noopener noreferrer">Visitar</a>
-                    </div>
+                    </article>
                 ))}
             </section>
             <section id='experiences' className="mb-8">
@@ -172,9 +172,14 @@ export default function Page(){
             </section>
             <section id='languages' className="mb-8">
                 <h2 className="text-2xl font-semibold mb-4">Idiomas</h2>
-                <ul className="list-disc ml-5 text-gray-800">
+                <ul className="ml-5 space-y-1 text-gray-800 list-inside">
                     {portfolio.languages.map((item, index) => (
-                        <li key={index}>{item}</li>
+                        <li key={index} className="flex items-center">
+                            <svg className="w-3.5 h-3.5 me-2 text-green-500 flex-shrink-0" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 8.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z"/>
+                            </svg>
+                            {item}
+                        </li>
                     ))}
                 </ul>
             </section>
