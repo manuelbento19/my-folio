@@ -1,6 +1,5 @@
 "use client"
-import { Portfolio } from '@/helpers/types';
-import React, { useState } from 'react';
+import React from 'react';
 
 const icons = [
   { name: 'Facebook', icon: 'fab fa-facebook-f' },
