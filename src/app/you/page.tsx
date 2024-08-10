@@ -58,7 +58,6 @@ const portfolio:Portfolio = {
     ]
 };
 
-
 const links = [
     {
         label: "Habilidades",
@@ -84,7 +83,7 @@ const links = [
 
 export default function Page(){
   return (
-    <main className='w-screen h-screen bg-white px-2'>
+    <main className='w-full h-screen bg-white px-2'>
         <div className="h-full max-w-4xl mx-auto w-full">
             <header className="bg-white w-full flex h-20 items-center justify-between sticky top-0">
                 <a className="text-2xl font-semibold" href="#">🚀MyFolio</a>
@@ -105,7 +104,11 @@ export default function Page(){
             </header>
             <section id='' className="mb-8 py-5">
                 <h1 className="text-3xl font-bold mb-2">{portfolio.personal.name}</h1>
-                <p className="text-xl font-semibold text-gray-700">{portfolio.personal.title}</p>
+                <div className="w-max">
+                    <h2 className="text-xl font-semibold text-gray-700 whitespace-nowrap border-r-2 border-r-gray-700 pr-5 overflow-hidden animate-typing">
+                        {portfolio.personal.title}
+                    </h2>
+                </div>
                 <p className="text-gray-600 mt-4">{portfolio.personal.about}</p>
                 <div className="mt-4 flex flex-col gap-3">
                     <p className="text-gray-600">📍 {portfolio.personal.address}</p>
