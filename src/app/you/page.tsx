@@ -137,14 +137,27 @@ export default function Page(){
             </section>
             <section id='projects' className="mb-8">
                 <h2 className="text-2xl font-semibold mb-4">Projetos</h2>
-                {portfolio.projects.map((item, index) => (
-                    <article key={index} className="mb-6 p-4 border rounded-lg shadow-sm">
-                        <h3 className="text-xl font-bold mb-2">{item.title}</h3>
-                        <p className="text-gray-700 mb-2">{item.description}</p>
-                        <p className="text-gray-600 mb-2"><b>Tecnologias</b>: {item.techs.join(', ')}</p>
-                        <a href={item.link} className="text-blue-600 underline" target="_blank" rel="noopener noreferrer">Visitar</a>
-                    </article>
-                ))}
+                <div className='grid grid-cols-1 sm:grid-cols-2 gap-x-3 gap-4'>
+                    {portfolio.projects.map((item, index) => (
+                        <article key={index} className="relative w-full flex flex-col items-start px-4 pt-8 pb-4 border shadow-sm rounded-lg transition duration-300 hover:shadow-lg">
+                            <span className="absolute text-xs font-medium top-0 left-0 rounded-br-lg rounded-tl-lg px-2 py-1 bg-gray-900 text-gray-300">
+                                #{index+1}
+                            </span>
+                            <div className="w-full flex flex-col gap-1">
+                                <h3 className="text-lg text-slate-900 font-semibold">{item.title}</h3>
+                                <p className="text-sm text-gray-700 mb-2">{item.description}</p>
+                                <div className="w-full flex items-center flex-wrap gap-2">
+                                    <span className="text-gray-800 font-medium">Tecnologias:</span>
+                                    {item.techs.map((item)=>(
+                                        <span key={item} className="bg-gray-200 hover:bg-gray-300 py-1 px-2 rounded-lg text-sm">{item}</span>
+                                    ))}
+                                </div>
+                                <a href={item.link} className="text-blue-600 underline" target="_blank" rel="noopener noreferrer">Visitar</a>
+                            </div>
+
+                        </article>
+                    ))}
+                </div>
             </section>
             <section id='experiences' className="mb-8">
                 <h2 className="text-2xl font-semibold mb-4">Experiência de Trabalho</h2>
