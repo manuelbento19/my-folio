@@ -7,7 +7,7 @@ const portfolio:Portfolio = {
     personal: {
         name: "Manuel Bento",
         title: "Software Developer",
-        about: "I don't know what write here",
+        about: "Passionate about technology since a young age, i'm self-taught developer with a strong eye for innovative design and a keen understanding of techniques geared toward optimum user experience. Love learning new things and enjoys a good technical challenge.",
         address: "Luanda, Angola"
     },
     contact: {
