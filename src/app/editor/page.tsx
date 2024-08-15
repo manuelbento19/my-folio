@@ -13,14 +13,14 @@ import {
   InputGroup,InputLeftElement,
   Select
 } from '@chakra-ui/react';
-import { BiChevronDown, BiPlus, BiX } from 'react-icons/bi';
+import { BiChevronDown, BiPlus, BiRecycle, BiTrash, BiX } from 'react-icons/bi';
 import { GoRocket } from 'react-icons/go';
 import { CiDesktop, CiMobile1 } from 'react-icons/ci';
 import { Desktop } from '../_components/devices/desktop';
 import { Template } from '../_components/template';
 import { portfolio } from '../you/page';
 import { Mobile } from '../_components/devices/mobile';
-import { useForm } from 'react-hook-form';
+import { useFieldArray, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { PortfolioSchema } from '@/helpers/schema';
 import { Portfolio } from '@/helpers/types';
@@ -35,13 +35,21 @@ const icons = [
 
 export default function Page(){
   const [mobileView,setMobileView] = useState(false);
-  const {register,handleSubmit,formState: {errors}} = useForm<Portfolio>({
+  const {register,handleSubmit,formState: {errors},control} = useForm<Portfolio>({
     resolver: zodResolver(PortfolioSchema)
   });
+
+  const {append:appendProject,remove:removeProject,fields:projects} = useFieldArray({
+    name: "projects",
+    control
+  })
 
   const onSubmit = (data:Portfolio) => {
     console.log(data)
   };
+
+  const addProject = () => appendProject({title: "",description: "", link: "",techs:""})
+  const deleteProject = (id:string) => removeProject(Number(id));
 
   return (
     <main className='w-screen h-screen flex items-center'>
@@ -85,36 +93,41 @@ export default function Page(){
           <div className="w-full flex flex-col gap-2 py-4 border">
             <header className="px-5 flex items-center justify-between">
               <h2 className="text-sm font-semibold tracking-tight md:text-base">Projectos</h2>
-              <button className="rounded-md border shadow-sm inline-block p-3 text-gray-700 hover:bg-gray-50">
+              <button type='button' onClick={addProject} className="rounded-md border shadow-sm inline-block p-3 text-gray-700 hover:bg-gray-50">
                 <BiPlus className='size-4'/>
               </button>
             </header>
             <div className="px-5 divide-y divide-neutral-200 max-h-48 py-2 overflow-y-auto">
-              {Array.from({length:3}).map((_,index)=>(
-              <div key={index} className="py-4">
+              {projects.map((item,index)=>(
+              <div key={index} className="py-2">
                 <details className="group">
                   <summary className="flex cursor-pointer list-none items-center justify-between font-medium">
                     <span className='text-sm'>Projecto {index+1}</span>
-                    <span className="p-1 bg-none transition group-open:rotate-180">
-                      <BiChevronDown/>
-                    </span>
+                    <div className='flex items-center gap-2'>
+                      <span className="p-1 bg-none transition group-open:rotate-180">
+                        <BiChevronDown/>
+                      </span>
+                      <button onClick={()=>deleteProject(item.id)} type='button' className='p-1 text-red-500'>
+                        <BiTrash className='size-4'/>
+                      </button>
+                    </div>
                   </summary>
                   <div className="group-open:animate-fadeIn mt-2 text-neutral-600 flex flex-col gap-2">
                     <div className='flex flex-col gap-1'>
                       <label className="text-xs font-medium text-gray-700">Nome</label>
-                      <input className="p-2 border w-full rounded-md border-gray-200 shadow-sm sm:text-sm"/>
+                      <input {...register(`projects.${index}.title`)} className="p-2 border w-full rounded-md border-gray-200 shadow-sm sm:text-sm"/>
                     </div>
                     <div className='flex flex-col gap-1'>
                       <label className="text-xs font-medium text-gray-700">Descrição</label>
-                      <textarea className="w-full rounded-lg border border-gray-200 align-top shadow-sm sm:text-sm" rows={4}></textarea>
+                      <textarea {...register(`projects.${index}.description`)} className="w-full rounded-lg border border-gray-200 align-top shadow-sm sm:text-sm" rows={4}></textarea>
                     </div>
                     <div className='flex flex-col gap-1'>
                       <label className="text-xs font-medium text-gray-700">Link</label>
-                      <input className="p-2 border w-full rounded-md border-gray-200 shadow-sm sm:text-sm"/>
+                      <input {...register(`projects.${index}.link`)} className="p-2 border w-full rounded-md border-gray-200 shadow-sm sm:text-sm"/>
                     </div>
                     <div className='flex flex-col gap-1'>
-                      <label className="text-xs font-medium text-gray-700">Tecnologias</label>
-                      <input className="p-2 border w-full rounded-md border-gray-200 shadow-sm sm:text-sm"/>
+                      <label className="text-xs font-medium text-gray-700">Tecnologias (separado por vírgula)</label>
+                      <input {...register(`projects.${index}.techs`)} className="p-2 border w-full rounded-md border-gray-200 shadow-sm sm:text-sm"/>
                     </div>
                   </div>
                 </details>

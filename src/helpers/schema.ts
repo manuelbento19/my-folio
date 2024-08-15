@@ -19,7 +19,7 @@ const ContactSchema = z.object({
 const ProjectSchema = z.object({
     title: z.string().nonempty(REQUIRED_),
     description: z.string().nonempty(REQUIRED_),
-    techs: z.array(z.string()),
+    techs: z.string(),
     link: z.string().url().nonempty(REQUIRED_),
 })
 
@@ -29,7 +29,7 @@ const ExperienceSchema = z.object({
     location: z.string().nonempty(REQUIRED_),
     start_date: z.coerce.date(),
     end_date: z.coerce.date().optional(),
-    responsibilities: z.array(z.string())
+    responsibilities: z.string()
 })
 
 const CertificationSchema = z.object({
