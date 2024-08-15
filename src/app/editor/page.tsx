@@ -47,6 +47,10 @@ export default function Page(){
     name: "projects",
     control
   })
+  const {append:appendExperience,remove:removeExperience,fields:experiences} = useFieldArray({
+    name: "experiences",
+    control
+  })
 
   const onSubmit = (data:Portfolio) => {
     console.log(data)
@@ -160,44 +164,49 @@ export default function Page(){
           <div className="w-full flex flex-col gap-2 py-4 border">
             <header className="px-5 flex items-center justify-between">
               <h2 className="text-sm font-semibold tracking-tight md:text-base">Experiências</h2>
-              <button className="rounded-md border shadow-sm inline-block p-3 text-gray-700 hover:bg-gray-50">
+              <button type='button' onClick={()=>appendExperience({title:"",company:"",location:"",start_date: new Date(),responsibilities:""})} className="rounded-md border shadow-sm inline-block p-3 text-gray-700 hover:bg-gray-50">
                 <BiPlus className='size-4'/>
               </button>
             </header>
             <div className="px-5 divide-y divide-neutral-200 max-h-48 py-2 overflow-y-auto">
-              {Array.from({length:3}).map((_,index)=>(
+              {experiences.map((item,index)=>(
               <div key={index} className="py-4">
                 <details className="group" open>
                   <summary className="flex cursor-pointer list-none items-center justify-between font-medium">
                     <span className='text-sm'>Experiência {index+1}</span>
-                    <span className="p-1 bg-none transition group-open:rotate-180">
-                      <BiChevronDown/>
-                    </span>
+                    <div className='flex items-center gap-2'>
+                      <span className="p-1 bg-none transition group-open:rotate-180">
+                        <BiChevronDown/>
+                      </span>
+                      <button onClick={()=>removeExperience(Number(item.id))} type='button' className='p-1 text-red-500'>
+                        <BiTrash className='size-4'/>
+                      </button>
+                    </div>
                   </summary>
                   <div className="group-open:animate-fadeIn mt-2 text-neutral-600 flex flex-col gap-2">
                     <div className='flex flex-col gap-1'>
                       <label className="text-xs font-medium text-gray-700">Cargo</label>
-                      <input className="p-2 border w-full rounded-md border-gray-200 shadow-sm sm:text-sm"/>
+                      <input {...register(`experiences.${index}.title`)} className="p-2 border w-full rounded-md border-gray-200 shadow-sm sm:text-sm"/>
                     </div>
                     <div className='flex flex-col gap-1'>
                       <label className="text-xs font-medium text-gray-700">Empresa</label>
-                      <input className="p-2 border w-full rounded-md border-gray-200 shadow-sm sm:text-sm"/>
+                      <input {...register(`experiences.${index}.company`)} className="p-2 border w-full rounded-md border-gray-200 shadow-sm sm:text-sm"/>
                     </div>
                     <div className='flex flex-col gap-1'>
                       <label className="text-xs font-medium text-gray-700">Local</label>
-                      <input className="p-2 border w-full rounded-md border-gray-200 shadow-sm sm:text-sm"/>
+                      <input {...register(`experiences.${index}.location`)} className="p-2 border w-full rounded-md border-gray-200 shadow-sm sm:text-sm"/>
                     </div>
                     <div className='flex flex-col gap-1'>
                       <label className="text-xs font-medium text-gray-700">Data de início</label>
-                      <input type='month' className="p-2 border w-full rounded-md border-gray-200 shadow-sm sm:text-sm"/>
+                      <input {...register(`experiences.${index}.start_date`)} type='month' className="p-2 border w-full rounded-md border-gray-200 shadow-sm sm:text-sm"/>
                     </div>
                     <div className='flex flex-col gap-1'>
                       <label className="text-xs font-medium text-gray-700">Data de término</label>
-                      <input type='month' className="p-2 border w-full rounded-md border-gray-200 shadow-sm sm:text-sm"/>
+                      <input {...register(`experiences.${index}.end_date`)} type='month' className="p-2 border w-full rounded-md border-gray-200 shadow-sm sm:text-sm"/>
                     </div>
                     <div className='flex flex-col gap-1'>
                       <label className="text-xs font-medium text-gray-700">Responsabilidades (separado por vírgula)</label>
-                      <textarea className="w-full rounded-lg border border-gray-200 align-top shadow-sm sm:text-sm" rows={4}></textarea>
+                      <textarea {...register(`experiences.${index}.responsibilities`)} className="w-full rounded-lg border border-gray-200 align-top shadow-sm sm:text-sm" rows={4}></textarea>
                     </div>
                   </div>
                 </details>
