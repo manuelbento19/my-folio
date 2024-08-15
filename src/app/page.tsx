@@ -30,8 +30,8 @@ export default function Page(){
 
   return (
     <main className='w-screen h-screen bg-gray-200 overflow-auto'>
-      <div className="h-full container mx-auto">
-        <form onSubmit={handleFormSubmit} className="max-w-2xl mx-auto p-6 flex flex-col gap-4">
+      <div className="h-full max-w-2xl mx-auto">
+        <form onSubmit={handleFormSubmit} className="w-full p-6 flex flex-col gap-4">
           <section className='bg-white px-4 py-8 shadow-lg rounded-lg flex flex-col gap-2'>
             <FormControl>
               <FormLabel>Nome</FormLabel>
