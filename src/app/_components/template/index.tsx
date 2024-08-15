@@ -32,8 +32,8 @@ type Props = {
 
 export const Template = ({portfolio}:Props) => {
   return (
-    <section className="h-full max-w-4xl mx-auto w-full">
-        <header className="bg-white w-full flex h-20 items-center justify-between sticky top-0">
+    <section className="h-full max-w-4xl mx-auto w-full px-2 md:px-4">
+        <header className="bg-white w-full flex h-20 items-center justify-between sticky top-0 px-3">
             <a className="text-2xl font-semibold" href="#">🚀MyFolio</a>
             <nav className="flex items-center gap-8">
                 <ul className="hidden md:flex items-center gap-6 text-sm">

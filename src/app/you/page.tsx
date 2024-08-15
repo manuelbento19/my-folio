@@ -2,7 +2,7 @@ import { Portfolio   } from '@/helpers/types';
 import React from 'react';
 import { Template } from '../_components/template';
 
-const portfolio:Portfolio = {
+export const portfolio:Portfolio = {
     personal: {
         name: "Manuel Bento",
         title: "Software Developer",

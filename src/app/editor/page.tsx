@@ -1,5 +1,5 @@
 "use client"
-import React from 'react';
+import React, { useState } from 'react';
 import { FaEnvelope, FaGithub, FaMapPin, FaPlus } from 'react-icons/fa';
 import {
   FormControl,
@@ -15,6 +15,11 @@ import {
 } from '@chakra-ui/react';
 import { BiChevronDown, BiPlus, BiX } from 'react-icons/bi';
 import { GoRocket } from 'react-icons/go';
+import { CiDesktop, CiMobile1 } from 'react-icons/ci';
+import { Desktop } from '../_components/devices/desktop';
+import { Template } from '../_components/template';
+import { portfolio } from '../you/page';
+import { Mobile } from '../_components/devices/mobile';
 
 const icons = [
   { name: 'Facebook', icon: 'fab fa-facebook-f' },
@@ -25,14 +30,15 @@ const icons = [
 ];
 
 export default function Page(){
-
+  const [mobileView,setMobileView] = useState(false);
+  
   const handleFormSubmit = (e:React.FormEvent) => {
     e.preventDefault();
   };
 
   return (
     <main className='w-screen h-screen flex items-center'>
-      <aside className="fixed inset-y-0 left-0 z-40 h-screen p-4 overflow-y-auto bg-white w-[400px]">
+      <aside className="h-screen p-4 overflow-y-auto bg-white w-[400px]">
         <header className='flex items-center justify-between'>
           <h5 className="text-base font-semibold text-gray-500">🚀MyFolio Editor</h5>
           <button type="button" className="text-gray-400 bg-transparent hover:text-gray-900 text-sm px-1" >
@@ -251,7 +257,18 @@ export default function Page(){
         </form>
       </aside>
       <section className='size-full flex-1 bg-gray-200'>
-
+        {mobileView ? (
+          <Mobile>
+            <Template portfolio={portfolio}/>
+          </Mobile>
+        ):(
+          <Desktop>
+            <Template portfolio={portfolio}/>
+          </Desktop>
+        )}
+        <button onClick={()=>setMobileView(prev=>!prev)} className="fixed bottom-4 right-4 bg-blue-500 hover:bg-blue-600 text-white py-2 px-2 rounded-full shadow-lg">
+          {!mobileView ? <CiMobile1 className='size-6'/> : <CiDesktop className='size-6'/>}
+        </button>
       </section>
     </main>
 )}
