@@ -19,7 +19,7 @@ import { SOCIAIS } from '@/helpers/constants';
 export default function Page(){
   const [mobileView,setMobileView] = useState(false);
   const {register,handleSubmit,formState: {errors},control} = useForm<Portfolio>({
-    resolver: zodResolver(PortfolioSchema)
+    resolver: zodResolver(PortfolioSchema),
   });
 
   const {append:appendSkill,remove:removeSkill,fields:skills} = useFieldArray({
@@ -61,6 +61,7 @@ export default function Page(){
           </button>
         </header>
         <form onSubmit={handleSubmit(onSubmit,error=>console.log(error))} className="mt-8 space-y-3">
+          {/*Personal*/}
           <div className="w-full flex flex-col gap-2 py-4 border">
             <header className="px-5 flex items-center justify-between">
               <h2 className="text-sm font-semibold tracking-tight md:text-base">Dados pessoais</h2>
@@ -83,6 +84,7 @@ export default function Page(){
               <div className='flex flex-col gap-1'>
                 <label className="text-xs font-medium text-gray-700">E-mail</label>
                 <input {...register('personal.email')} type='email' className="p-2 border w-full rounded-md border-gray-200 shadow-sm sm:text-sm"/>
+                {errors.personal?.email && <span className='text-xs text-red-500'>{errors.personal.email.message}</span>}
               </div>
               <div className='flex flex-col gap-1'>
                 <label className="text-xs font-medium text-gray-700">Endereço</label>
@@ -90,6 +92,7 @@ export default function Page(){
               </div>
             </div>
           </div>
+          {/*Projects*/}
           <div className="w-full flex flex-col gap-2 py-4 border">
             <header className="px-5 flex items-center justify-between">
               <h2 className="text-sm font-semibold tracking-tight md:text-base">Projectos</h2>
@@ -135,6 +138,7 @@ export default function Page(){
               ))}
             </div>
           </div>
+          {/*Skills*/}
           <div className="w-full flex flex-col gap-2 py-4 border">
             <header className="px-5 flex items-center justify-between">
               <h2 className="text-sm font-semibold tracking-tight md:text-base">Habilidades</h2>
@@ -156,10 +160,11 @@ export default function Page(){
               ))}
             </div>
           </div>
+          {/*Experiences*/}
           <div className="w-full flex flex-col gap-2 py-4 border">
             <header className="px-5 flex items-center justify-between">
               <h2 className="text-sm font-semibold tracking-tight md:text-base">Experiências</h2>
-              <button type='button' onClick={()=>appendExperience({title:"",company:"",location:"",start_date: new Date(),responsibilities:""})} className="rounded-md border shadow-sm inline-block p-3 text-gray-700 hover:bg-gray-50">
+              <button type='button' onClick={()=>appendExperience({title:"",company:"",location:"",start_date: "",responsibilities:""})} className="rounded-md border shadow-sm inline-block p-3 text-gray-700 hover:bg-gray-50">
                 <BiPlus className='size-4'/>
               </button>
             </header>
@@ -209,10 +214,11 @@ export default function Page(){
               ))}
             </div>
           </div>
+          {/*Certificações*/}
           <div className="w-full flex flex-col gap-2 py-4 border">
             <header className="px-5 flex items-center justify-between">
               <h2 className="text-sm font-semibold tracking-tight md:text-base">Certificações</h2>
-              <button type='button' onClick={()=>appendCertification({title:"",provider:"",date: new Date()})} className="rounded-md border shadow-sm inline-block p-3 text-gray-700 hover:bg-gray-50">
+              <button type='button' onClick={()=>appendCertification({title:"",provider:"",date:""})} className="rounded-md border shadow-sm inline-block p-3 text-gray-700 hover:bg-gray-50">
                 <BiPlus className='size-4'/>
               </button>
             </header>
@@ -250,10 +256,11 @@ export default function Page(){
               ))}
             </div>
           </div>
+          {/*Contacts*/}
           <div className="w-full flex flex-col gap-2 py-4 border">
             <header className="px-5 flex items-center justify-between">
               <h2 className="text-sm font-semibold tracking-tight md:text-base">Contactos</h2>
-              <button type='button' onClick={()=>appendContact({type: Social.Github,link: "" })} className="rounded-md border shadow-sm inline-block p-3 text-gray-700 hover:bg-gray-50">
+              <button type='button' onClick={()=>appendContact({type: Social[0],link: "" })} className="rounded-md border shadow-sm inline-block p-3 text-gray-700 hover:bg-gray-50">
                 <BiPlus className='size-4'/>
               </button>
             </header>
@@ -277,7 +284,7 @@ export default function Page(){
                       <label className="text-sm font-medium text-gray-700">Rede</label>
                       <select {...register(`contacts.${index}.type`)} className="p-2 border w-full rounded-lg border-gray-300 text-gray-700 sm:text-sm">
                         {SOCIAIS.map(item => (
-                          <option key={item.type} value={item.type}>
+                          <option key={item.type} value={Social[item.type]}>
                             {Social[item.type]}
                           </option>
                         ))}
@@ -293,6 +300,7 @@ export default function Page(){
               ))}
             </div>
           </div>
+          {/*Languages*/}
           <div className="w-full flex flex-col gap-2 py-4 border">
             <header className="px-5 flex items-center justify-between">
               <h2 className="text-sm font-semibold tracking-tight md:text-base">Idiomas</h2>
@@ -301,7 +309,7 @@ export default function Page(){
               </button>
             </header>
             <div className="px-5 divide-y divide-neutral-200 max-h-48 py-2 overflow-y-auto">
-              {skills.map((item,index)=>(
+              {languages.map((item,index)=>(
                 <div key={index} className="py-4 text-neutral-600 flex flex-col gap-1">
                   <label className="text-xs font-medium text-gray-700">Idioma</label>
                   <div className="flex items-center gap-2">

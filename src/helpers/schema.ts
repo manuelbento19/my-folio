@@ -1,5 +1,4 @@
 import { z } from "zod";
-import { Social } from "./types";
 
 const REQUIRED_= "Campo obrigatório"
 
@@ -29,7 +28,7 @@ const ExperienceSchema = z.object({
     title: z.string().nonempty(REQUIRED_),
     company: z.string().nonempty(REQUIRED_),
     location: z.string().nonempty(REQUIRED_),
-    start_date: z.coerce.date(),
+    start_date: z.date().or(z.string().nonempty(REQUIRED_)),
     end_date: z.coerce.date().optional(),
     responsibilities: z.string()
 })
@@ -37,11 +36,11 @@ const ExperienceSchema = z.object({
 const CertificationSchema = z.object({
     title: z.string().nonempty(REQUIRED_),
     provider: z.string().nonempty(REQUIRED_),
-    date: z.coerce.date(),
+    date: z.date().or(z.string().nonempty(REQUIRED_)),
 })
 
 const ContactSchema = z.object({
-    type: z.nativeEnum(Social),
+    type: z.string(),
     link: z.string().url(),
 })
 
