@@ -39,6 +39,10 @@ export default function Page(){
     resolver: zodResolver(PortfolioSchema)
   });
 
+  const {append:appendSkill,remove:removeSkill,fields:skills} = useFieldArray({
+    name: "skills",
+    control
+  })
   const {append:appendProject,remove:removeProject,fields:projects} = useFieldArray({
     name: "projects",
     control
@@ -47,9 +51,6 @@ export default function Page(){
   const onSubmit = (data:Portfolio) => {
     console.log(data)
   };
-
-  const addProject = () => appendProject({title: "",description: "", link: "",techs:""})
-  const deleteProject = (id:string) => removeProject(Number(id));
 
   return (
     <main className='w-screen h-screen flex items-center'>
@@ -93,21 +94,21 @@ export default function Page(){
           <div className="w-full flex flex-col gap-2 py-4 border">
             <header className="px-5 flex items-center justify-between">
               <h2 className="text-sm font-semibold tracking-tight md:text-base">Projectos</h2>
-              <button type='button' onClick={addProject} className="rounded-md border shadow-sm inline-block p-3 text-gray-700 hover:bg-gray-50">
+              <button type='button' onClick={()=>appendProject({title: "",description: "", link: "",techs:""})} className="rounded-md border shadow-sm inline-block p-3 text-gray-700 hover:bg-gray-50">
                 <BiPlus className='size-4'/>
               </button>
             </header>
             <div className="px-5 divide-y divide-neutral-200 max-h-48 py-2 overflow-y-auto">
               {projects.map((item,index)=>(
               <div key={index} className="py-2">
-                <details className="group">
+                <details className="group" open>
                   <summary className="flex cursor-pointer list-none items-center justify-between font-medium">
                     <span className='text-sm'>Projecto {index+1}</span>
                     <div className='flex items-center gap-2'>
                       <span className="p-1 bg-none transition group-open:rotate-180">
                         <BiChevronDown/>
                       </span>
-                      <button onClick={()=>deleteProject(item.id)} type='button' className='p-1 text-red-500'>
+                      <button onClick={()=>removeProject(Number(item.id))} type='button' className='p-1 text-red-500'>
                         <BiTrash className='size-4'/>
                       </button>
                     </div>
@@ -138,15 +139,20 @@ export default function Page(){
           <div className="w-full flex flex-col gap-2 py-4 border">
             <header className="px-5 flex items-center justify-between">
               <h2 className="text-sm font-semibold tracking-tight md:text-base">Habilidades</h2>
-              <button className="rounded-md border shadow-sm inline-block p-3 text-gray-700 hover:bg-gray-50">
+              <button type='button' onClick={()=>appendSkill({name:""})} className="rounded-md border shadow-sm inline-block p-3 text-gray-700 hover:bg-gray-50">
                 <BiPlus className='size-4'/>
               </button>
             </header>
             <div className="px-5 divide-y divide-neutral-200 max-h-48 py-2 overflow-y-auto">
-              {Array.from({length:1}).map((_,index)=>(
+              {skills.map((item,index)=>(
                 <div key={index} className="py-4 text-neutral-600 flex flex-col gap-1">
                   <label className="text-xs font-medium text-gray-700">Habilidade</label>
-                  <input className="p-2 border w-full rounded-md border-gray-200 shadow-sm sm:text-sm"/>
+                  <div className="flex items-center gap-2">
+                    <input {...register(`skills.${index}.name`)} className="p-2 border w-full rounded-md border-gray-200 shadow-sm sm:text-sm"/>
+                    <button onClick={()=>removeSkill(Number(item.id))} type='button' className='p-1 text-red-500'>
+                      <BiTrash className='size-4'/>
+                    </button>
+                  </div>
                 </div>
               ))}
             </div>
@@ -161,7 +167,7 @@ export default function Page(){
             <div className="px-5 divide-y divide-neutral-200 max-h-48 py-2 overflow-y-auto">
               {Array.from({length:3}).map((_,index)=>(
               <div key={index} className="py-4">
-                <details className="group">
+                <details className="group" open>
                   <summary className="flex cursor-pointer list-none items-center justify-between font-medium">
                     <span className='text-sm'>Experiência {index+1}</span>
                     <span className="p-1 bg-none transition group-open:rotate-180">
@@ -209,7 +215,7 @@ export default function Page(){
             <div className="px-5 divide-y divide-neutral-200 max-h-48 py-2 overflow-y-auto">
               {Array.from({length:3}).map((_,index)=>(
               <div key={index} className="py-4">
-                <details className="group">
+                <details className="group" open>
                   <summary className="flex cursor-pointer list-none items-center justify-between font-medium">
                     <span className='text-sm'>Certificação {index+1}</span>
                     <span className="p-1 bg-none transition group-open:rotate-180">
@@ -245,7 +251,7 @@ export default function Page(){
             <div className="px-5 divide-y divide-neutral-200 max-h-48 py-2 overflow-y-auto">
               {Array.from({length:3}).map((_,index)=>(
               <div key={index} className="py-4">
-                <details className="group">
+                <details className="group" open>
                   <summary className="flex cursor-pointer list-none items-center justify-between font-medium">
                     <span className='text-sm'>Contacto {index+1}</span>
                     <span className="p-1 bg-none transition group-open:rotate-180">

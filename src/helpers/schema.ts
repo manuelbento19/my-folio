@@ -2,6 +2,10 @@ import { z } from "zod";
 
 const REQUIRED_= "Campo obrigatório"
 
+const SkillSchema = z.object({
+    name: z.string().nonempty(REQUIRED_),
+})
+
 const PersonalInfoSchema = z.object({
     name: z.string().nonempty(REQUIRED_),
     title: z.string().nonempty(REQUIRED_),
@@ -40,10 +44,10 @@ const CertificationSchema = z.object({
 
 export const PortfolioSchema = z.object({
     personal: PersonalInfoSchema,
-    contact: ContactSchema,
-    skills: z.array(z.string()),
+    skills: z.array(SkillSchema),
     projects: z.array(ProjectSchema),
     experiences: z.array(ExperienceSchema),
     certifications: z.array(CertificationSchema),
-    languages: z.array(z.string())
+    languages: z.array(z.string()),
+    contact: ContactSchema,
 })
