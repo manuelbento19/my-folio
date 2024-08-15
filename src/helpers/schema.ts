@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { Social } from "./types";
 
 const REQUIRED_= "Campo obrigatório"
 
@@ -12,12 +13,6 @@ const PersonalInfoSchema = z.object({
     about: z.string().optional(),
     address: z.string().optional(),
     email: z.string().email().optional()
-})
-
-const ContactSchema = z.object({
-    github: z.string().url().optional(),
-    linkedin: z.string().url().optional(),
-    twitter: z.string().url().optional(),
 })
 
 const ProjectSchema = z.object({
@@ -42,6 +37,11 @@ const CertificationSchema = z.object({
     date: z.coerce.date(),
 })
 
+const ContactSchema = z.object({
+    type: z.nativeEnum(Social),
+    link: z.string().url(),
+})
+
 export const PortfolioSchema = z.object({
     personal: PersonalInfoSchema,
     skills: z.array(SkillSchema),
@@ -49,5 +49,5 @@ export const PortfolioSchema = z.object({
     experiences: z.array(ExperienceSchema),
     certifications: z.array(CertificationSchema),
     languages: z.array(z.string()),
-    contact: ContactSchema,
+    contacts: z.array(ContactSchema),
 })

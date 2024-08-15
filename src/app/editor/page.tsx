@@ -1,17 +1,7 @@
 "use client"
 import React, { useState } from 'react';
-import { FaEnvelope, FaGithub, FaMapPin, FaPlus } from 'react-icons/fa';
 import {
-  FormControl,
-  FormLabel,
-  FormErrorMessage,
-  Input,
-  Text,
-  Textarea,
-  Box,
   Button,
-  InputGroup,InputLeftElement,
-  Select
 } from '@chakra-ui/react';
 import { BiChevronDown, BiPlus, BiRecycle, BiTrash, BiX } from 'react-icons/bi';
 import { GoRocket } from 'react-icons/go';
@@ -23,15 +13,8 @@ import { Mobile } from '../_components/devices/mobile';
 import { useFieldArray, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { PortfolioSchema } from '@/helpers/schema';
-import { Portfolio } from '@/helpers/types';
-
-const icons = [
-  { name: 'Facebook', icon: 'fab fa-facebook-f' },
-  { name: 'Twitter', icon: 'fab fa-twitter' },
-  { name: 'LinkedIn', icon: 'fab fa-linkedin-in' },
-  { name: 'Instagram', icon: 'fab fa-instagram' },
-  { name: 'GitHub', icon: 'fab fa-github' }
-];
+import { Portfolio, Social } from '@/helpers/types';
+import { SOCIAIS } from '@/helpers/constants';
 
 export default function Page(){
   const [mobileView,setMobileView] = useState(false);
@@ -53,6 +36,10 @@ export default function Page(){
   })
   const {append:appendCertification,remove:removeCertification,fields:certifications} = useFieldArray({
     name: "certifications",
+    control
+  })
+  const {append:appendContact,remove:removeContact,fields:contacts} = useFieldArray({
+    name: "contacts",
     control
   })
 
@@ -243,15 +230,15 @@ export default function Page(){
                   <div className="group-open:animate-fadeIn mt-2 text-neutral-600 flex flex-col gap-2">
                     <div className='flex flex-col gap-1'>
                       <label className="text-xs font-medium text-gray-700">Título</label>
-                      <input className="p-2 border w-full rounded-md border-gray-200 shadow-sm sm:text-sm"/>
+                      <input {...register(`certifications.${index}.title`)} className="p-2 border w-full rounded-md border-gray-200 shadow-sm sm:text-sm"/>
                     </div>
                     <div className='flex flex-col gap-1'>
                       <label className="text-xs font-medium text-gray-700">Entidade</label>
-                      <input className="p-2 border w-full rounded-md border-gray-200 shadow-sm sm:text-sm"/>
+                      <input {...register(`certifications.${index}.provider`)} className="p-2 border w-full rounded-md border-gray-200 shadow-sm sm:text-sm"/>
                     </div>
                     <div className='flex flex-col gap-1'>
                       <label className="text-xs font-medium text-gray-700">Data de emissão</label>
-                      <input type='month' className="p-2 border w-full rounded-md border-gray-200 shadow-sm sm:text-sm"/>
+                      <input {...register(`certifications.${index}.date`)} type='month' className="p-2 border w-full rounded-md border-gray-200 shadow-sm sm:text-sm"/>
                     </div>
                   </div>
                 </details>
@@ -262,34 +249,39 @@ export default function Page(){
           <div className="w-full flex flex-col gap-2 py-4 border">
             <header className="px-5 flex items-center justify-between">
               <h2 className="text-sm font-semibold tracking-tight md:text-base">Contactos</h2>
-              <button className="rounded-md border shadow-sm inline-block p-3 text-gray-700 hover:bg-gray-50">
+              <button type='button' onClick={()=>appendContact({type: Social.Github,link: "" })} className="rounded-md border shadow-sm inline-block p-3 text-gray-700 hover:bg-gray-50">
                 <BiPlus className='size-4'/>
               </button>
             </header>
             <div className="px-5 divide-y divide-neutral-200 max-h-48 py-2 overflow-y-auto">
-              {Array.from({length:3}).map((_,index)=>(
-              <div key={index} className="py-4">
+              {contacts.map((item,index)=>(
+              <div key={item.id} className="py-4">
                 <details className="group" open>
                   <summary className="flex cursor-pointer list-none items-center justify-between font-medium">
                     <span className='text-sm'>Contacto {index+1}</span>
-                    <span className="p-1 bg-none transition group-open:rotate-180">
-                      <BiChevronDown/>
-                    </span>
+                    <div className='flex items-center gap-2'>
+                      <span className="p-1 bg-none transition group-open:rotate-180">
+                        <BiChevronDown/>
+                      </span>
+                      <button onClick={()=>removeContact(Number(item.id))} type='button' className='p-1 text-red-500'>
+                        <BiTrash className='size-4'/>
+                      </button>
+                    </div>
                   </summary>
                   <div className="group-open:animate-fadeIn mt-2 text-neutral-600 flex flex-col gap-2">
                     <div className='flex flex-col gap-1'>
                       <label className="text-sm font-medium text-gray-700">Rede</label>
-                      <select className="p-2 border w-full rounded-lg border-gray-300 text-gray-700 sm:text-sm">
-                        {icons.map(icon => (
-                          <option key={icon.name} value={icon.name}>
-                            {icon.name}
+                      <select {...register(`contacts.${index}.type`)} className="p-2 border w-full rounded-lg border-gray-300 text-gray-700 sm:text-sm">
+                        {SOCIAIS.map(item => (
+                          <option key={item.type} value={item.type}>
+                            {Social[item.type]}
                           </option>
                         ))}
                       </select>
                     </div>
                     <div className='flex flex-col gap-1'>
                       <label className="text-xs font-medium text-gray-700">URL</label>
-                      <input type='url' className="p-2 border w-full rounded-md border-gray-200 shadow-sm sm:text-sm"/>
+                      <input {...register(`contacts.${index}.link`)} type='url' className="p-2 border w-full rounded-md border-gray-200 shadow-sm sm:text-sm"/>
                     </div>
                   </div>
                 </details>
