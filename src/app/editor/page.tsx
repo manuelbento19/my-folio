@@ -42,6 +42,10 @@ export default function Page(){
     name: "contacts",
     control
   })
+  const {append:appendLanguage,remove:removeLanguage,fields:languages} = useFieldArray({
+    name: "languages",
+    control
+  })
 
   const onSubmit = (data:Portfolio) => {
     console.log(data)
@@ -56,7 +60,7 @@ export default function Page(){
             <BiX className="size-6"/>
           </button>
         </header>
-        <form onSubmit={handleSubmit(onSubmit)} className="mt-8 space-y-3">
+        <form onSubmit={handleSubmit(onSubmit,error=>console.log(error))} className="mt-8 space-y-3">
           <div className="w-full flex flex-col gap-2 py-4 border">
             <header className="px-5 flex items-center justify-between">
               <h2 className="text-sm font-semibold tracking-tight md:text-base">Dados pessoais</h2>
@@ -286,6 +290,27 @@ export default function Page(){
                   </div>
                 </details>
               </div>
+              ))}
+            </div>
+          </div>
+          <div className="w-full flex flex-col gap-2 py-4 border">
+            <header className="px-5 flex items-center justify-between">
+              <h2 className="text-sm font-semibold tracking-tight md:text-base">Idiomas</h2>
+              <button type='button' onClick={()=>appendLanguage({name:""})} className="rounded-md border shadow-sm inline-block p-3 text-gray-700 hover:bg-gray-50">
+                <BiPlus className='size-4'/>
+              </button>
+            </header>
+            <div className="px-5 divide-y divide-neutral-200 max-h-48 py-2 overflow-y-auto">
+              {skills.map((item,index)=>(
+                <div key={index} className="py-4 text-neutral-600 flex flex-col gap-1">
+                  <label className="text-xs font-medium text-gray-700">Idioma</label>
+                  <div className="flex items-center gap-2">
+                    <input {...register(`languages.${index}.name`)} className="p-2 border w-full rounded-md border-gray-200 shadow-sm sm:text-sm"/>
+                    <button onClick={()=>removeLanguage(Number(item.id))} type='button' className='p-1 text-red-500'>
+                      <BiTrash className='size-4'/>
+                    </button>
+                  </div>
+                </div>
               ))}
             </div>
           </div>

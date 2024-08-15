@@ -7,6 +7,9 @@ const SkillSchema = z.object({
     name: z.string().nonempty(REQUIRED_),
 })
 
+const LanguageSchema = z.object({
+    name: z.string().nonempty(REQUIRED_),
+})
 const PersonalInfoSchema = z.object({
     name: z.string().nonempty(REQUIRED_),
     title: z.string().nonempty(REQUIRED_),
@@ -48,6 +51,6 @@ export const PortfolioSchema = z.object({
     projects: z.array(ProjectSchema),
     experiences: z.array(ExperienceSchema),
     certifications: z.array(CertificationSchema),
-    languages: z.array(z.string()),
+    languages: z.array(LanguageSchema),
     contacts: z.array(ContactSchema),
 })
