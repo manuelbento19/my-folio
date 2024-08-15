@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default function Page() {
+export function Desktop() {
   return (
     <main className='w-full h-screen bg-gray-50 overflow-auto flex p-2'>
       <section id='device' className='m-auto max-w-4xl w-full'>
