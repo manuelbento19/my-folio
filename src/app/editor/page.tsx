@@ -51,6 +51,10 @@ export default function Page(){
     name: "experiences",
     control
   })
+  const {append:appendCertification,remove:removeCertification,fields:certifications} = useFieldArray({
+    name: "certifications",
+    control
+  })
 
   const onSubmit = (data:Portfolio) => {
     console.log(data)
@@ -217,19 +221,24 @@ export default function Page(){
           <div className="w-full flex flex-col gap-2 py-4 border">
             <header className="px-5 flex items-center justify-between">
               <h2 className="text-sm font-semibold tracking-tight md:text-base">Certificações</h2>
-              <button className="rounded-md border shadow-sm inline-block p-3 text-gray-700 hover:bg-gray-50">
+              <button type='button' onClick={()=>appendCertification({title:"",provider:"",date: new Date()})} className="rounded-md border shadow-sm inline-block p-3 text-gray-700 hover:bg-gray-50">
                 <BiPlus className='size-4'/>
               </button>
             </header>
             <div className="px-5 divide-y divide-neutral-200 max-h-48 py-2 overflow-y-auto">
-              {Array.from({length:3}).map((_,index)=>(
+              {certifications.map((item,index)=>(
               <div key={index} className="py-4">
                 <details className="group" open>
                   <summary className="flex cursor-pointer list-none items-center justify-between font-medium">
                     <span className='text-sm'>Certificação {index+1}</span>
-                    <span className="p-1 bg-none transition group-open:rotate-180">
-                      <BiChevronDown/>
-                    </span>
+                    <div className='flex items-center gap-2'>
+                      <span className="p-1 bg-none transition group-open:rotate-180">
+                        <BiChevronDown/>
+                      </span>
+                      <button onClick={()=>removeCertification(Number(item.id))} type='button' className='p-1 text-red-500'>
+                        <BiTrash className='size-4'/>
+                      </button>
+                    </div>
                   </summary>
                   <div className="group-open:animate-fadeIn mt-2 text-neutral-600 flex flex-col gap-2">
                     <div className='flex flex-col gap-1'>
