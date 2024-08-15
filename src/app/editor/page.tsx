@@ -20,6 +20,10 @@ import { Desktop } from '../_components/devices/desktop';
 import { Template } from '../_components/template';
 import { portfolio } from '../you/page';
 import { Mobile } from '../_components/devices/mobile';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { PortfolioSchema } from '@/helpers/schema';
+import { Portfolio } from '@/helpers/types';
 
 const icons = [
   { name: 'Facebook', icon: 'fab fa-facebook-f' },
@@ -31,9 +35,12 @@ const icons = [
 
 export default function Page(){
   const [mobileView,setMobileView] = useState(false);
-  
-  const handleFormSubmit = (e:React.FormEvent) => {
-    e.preventDefault();
+  const {register,handleSubmit,formState: {errors}} = useForm<Portfolio>({
+    resolver: zodResolver(PortfolioSchema)
+  });
+
+  const onSubmit = (data:Portfolio) => {
+    console.log(data)
   };
 
   return (
@@ -45,7 +52,7 @@ export default function Page(){
             <BiX className="size-6"/>
           </button>
         </header>
-        <form className="mt-8 space-y-3">
+        <form onSubmit={handleSubmit(onSubmit)} className="mt-8 space-y-3">
           <div className="w-full flex flex-col gap-2 py-4 border">
             <header className="px-5 flex items-center justify-between">
               <h2 className="text-sm font-semibold tracking-tight md:text-base">Dados pessoais</h2>
@@ -53,23 +60,25 @@ export default function Page(){
             <div className="px-5 py-2 flex flex-col gap-2">
               <div className='flex flex-col gap-1'>
                 <label className="text-xs font-medium text-gray-700">Nome</label>
-                <input className="p-2 border w-full rounded-md border-gray-200 shadow-sm sm:text-sm"/>
+                <input {...register('personal.name')} className="p-2 border w-full rounded-md border-gray-200 shadow-sm sm:text-sm"/>
+                {errors.personal?.name && <span className='text-xs text-red-500'>{errors.personal.name.message}</span>}
               </div>
               <div className='flex flex-col gap-1'>
                 <label className="text-xs font-medium text-gray-700">Título</label>
-                <input className="p-2 border w-full rounded-md border-gray-200 shadow-sm sm:text-sm"/>
+                <input {...register('personal.title')} className="p-2 border w-full rounded-md border-gray-200 shadow-sm sm:text-sm"/>
+                {errors.personal?.title && <span className='text-xs text-red-500'>{errors.personal?.title.message}</span>}
               </div>
               <div className='flex flex-col gap-1'>
                 <label className="text-xs font-medium text-gray-700">Biografia</label>
-                <textarea className="w-full rounded-lg border border-gray-200 align-top shadow-sm sm:text-sm" rows={4}></textarea>
+                <textarea {...register('personal.about')} className="w-full rounded-lg border border-gray-200 align-top shadow-sm sm:text-sm" rows={4}></textarea>
               </div>
               <div className='flex flex-col gap-1'>
                 <label className="text-xs font-medium text-gray-700">E-mail</label>
-                <input type='email' className="p-2 border w-full rounded-md border-gray-200 shadow-sm sm:text-sm"/>
+                <input {...register('personal.email')} type='email' className="p-2 border w-full rounded-md border-gray-200 shadow-sm sm:text-sm"/>
               </div>
               <div className='flex flex-col gap-1'>
                 <label className="text-xs font-medium text-gray-700">Endereço</label>
-                <input type='email' className="p-2 border w-full rounded-md border-gray-200 shadow-sm sm:text-sm"/>
+                <input {...register('personal.address')} type='email' className="p-2 border w-full rounded-md border-gray-200 shadow-sm sm:text-sm"/>
               </div>
             </div>
           </div>
@@ -251,7 +260,7 @@ export default function Page(){
               ))}
             </div>
           </div>
-          <Button leftIcon={<GoRocket/>} colorScheme={"blue"} w={"100%"}>
+          <Button type='submit' leftIcon={<GoRocket/>} colorScheme={"blue"} w={"100%"}>
             Publicar
           </Button>
         </form>

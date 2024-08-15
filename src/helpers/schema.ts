@@ -7,13 +7,13 @@ const PersonalInfoSchema = z.object({
     title: z.string().nonempty(REQUIRED_),
     about: z.string().optional(),
     address: z.string().optional(),
+    email: z.string().email().optional()
 })
 
 const ContactSchema = z.object({
     github: z.string().url().optional(),
     linkedin: z.string().url().optional(),
     twitter: z.string().url().optional(),
-    email: z.string().url().optional()
 })
 
 const ProjectSchema = z.object({

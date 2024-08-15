@@ -58,7 +58,7 @@ export const Template = ({portfolio}:Props) => {
             <p className="text-gray-600 mt-4">{portfolio.personal.about}</p>
             <div className="mt-4 flex flex-col gap-3">
                 <p className="text-gray-600">📍 {portfolio.personal.address}</p>
-                <p className="text-gray-600">✉️ <a href={portfolio.contact.email} className="text-blue-600 underline" target="_blank" rel="noopener noreferrer">{portfolio.contact.email}</a></p>
+                <p className="text-gray-600">✉️ <a href={portfolio.personal.email} className="text-blue-600 underline" target="_blank" rel="noopener noreferrer">{portfolio.personal.email}</a></p>
                 <div className="mt-4 flex items-center gap-2 flex-wrap">
                     <a href="#" target='_blank' className="p-1 rounded-lg flex items-center border border-gray-300 justify-center transition-all duration-500 hover:border-gray-100 hover:bg-gray-100">
                         <FaGithub className='size-4'/>
