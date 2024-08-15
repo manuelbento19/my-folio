@@ -3,24 +3,31 @@ import React, { useState } from 'react';
 import {
   Button,
 } from '@chakra-ui/react';
-import { BiChevronDown, BiPlus, BiRecycle, BiTrash, BiX } from 'react-icons/bi';
+import { BiChevronDown, BiPlus, BiTrash, BiX } from 'react-icons/bi';
 import { GoRocket } from 'react-icons/go';
 import { CiDesktop, CiMobile1 } from 'react-icons/ci';
 import { Desktop } from '../_components/devices/desktop';
 import { Template } from '../_components/template';
-import { portfolio } from '../you/page';
 import { Mobile } from '../_components/devices/mobile';
 import { useFieldArray, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { PortfolioSchema } from '@/helpers/schema';
 import { Portfolio, Social } from '@/helpers/types';
 import { SOCIAIS } from '@/helpers/constants';
+import { CopyLinkModal } from '../_components/modal';
 
 export default function Page(){
   const [mobileView,setMobileView] = useState(false);
-  const {register,handleSubmit,formState: {errors},control} = useForm<Portfolio>({
+  const [viewModal,setViewModal] = useState(false);
+  const {register,handleSubmit,formState: {errors},control,watch} = useForm<Portfolio>({
     resolver: zodResolver(PortfolioSchema),
   });
+
+  const portfolioData = watch();
+
+  const closeModal = () => {
+    setViewModal(prev=>!prev)
+  }
 
   const {append:appendSkill,remove:removeSkill,fields:skills} = useFieldArray({
     name: "skills",
@@ -49,6 +56,7 @@ export default function Page(){
 
   const onSubmit = (data:Portfolio) => {
     console.log(data)
+    closeModal()
   };
 
   return (
@@ -88,7 +96,7 @@ export default function Page(){
               </div>
               <div className='flex flex-col gap-1'>
                 <label className="text-xs font-medium text-gray-700">Endereço</label>
-                <input {...register('personal.address')} type='email' className="p-2 border w-full rounded-md border-gray-200 shadow-sm sm:text-sm"/>
+                <input {...register('personal.address')} className="p-2 border w-full rounded-md border-gray-200 shadow-sm sm:text-sm"/>
               </div>
             </div>
           </div>
@@ -330,17 +338,18 @@ export default function Page(){
       <section className='size-full flex-1 bg-gray-200'>
         {mobileView ? (
           <Mobile>
-            <Template portfolio={portfolio}/>
+            <Template portfolio={portfolioData}/>
           </Mobile>
         ):(
           <Desktop>
-            <Template portfolio={portfolio}/>
+            <Template portfolio={portfolioData}/>
           </Desktop>
         )}
         <button onClick={()=>setMobileView(prev=>!prev)} className="fixed bottom-4 right-4 bg-blue-500 hover:bg-blue-600 text-white py-2 px-2 rounded-full shadow-lg">
           {!mobileView ? <CiMobile1 className='size-6'/> : <CiDesktop className='size-6'/>}
         </button>
       </section>
+      {viewModal && <CopyLinkModal onClose={closeModal} link='defv'/>}
     </main>
 )}
 /*
