@@ -33,7 +33,7 @@ type Props = {
 
 export const Template = ({portfolio}:Props) => {
   return (
-    <section className="h-full max-w-4xl mx-auto w-full px-2 md:px-4">
+    <section className="h-full max-w-4xl mx-auto w-full px-2 md:px-4 relative">
         <header className="bg-white w-full flex h-20 items-center justify-between sticky top-0 px-3">
             <a className="text-2xl font-semibold" href="#">🚀MyFolio</a>
             <nav className="flex items-center gap-8">
@@ -49,7 +49,7 @@ export const Template = ({portfolio}:Props) => {
                 </button>
             </nav>
         </header>
-        <section id='' className="mb-8 py-5">
+        <section id='' className="mb-8 pt-6 pb-5">
             {portfolio.personal?.name && <h1 className="text-3xl font-bold mb-2">{portfolio.personal?.name}</h1>}
             {portfolio.personal?.title && (
             <div className="w-max">
@@ -144,17 +144,17 @@ export const Template = ({portfolio}:Props) => {
             </section>
         )}
         {portfolio.languages?.length > 0  && (
-        <section id='languages' className="mb-8">
-            <h2 className="text-2xl font-semibold mb-4">Idiomas</h2>
-            <ul className="ml-5 space-y-1 text-gray-800 list-inside">
-                {portfolio.languages?.map((item, index) => (
-                    <li key={index} className="flex items-center">
-                        <FaCheckCircle className="size-3.5 mr-2 text-green-500 flex-shrink-0"/>
-                        {item.name}
-                    </li>
-                ))}
-            </ul>
-        </section>
+            <section id='languages' className="mb-8">
+                <h2 className="text-2xl font-semibold mb-4">Idiomas</h2>
+                <ul className="ml-5 space-y-1 text-gray-800 list-inside">
+                    {portfolio.languages?.map((item, index) => (
+                        <li key={index} className="flex items-center">
+                            <FaCheckCircle className="size-3.5 mr-2 text-green-500 flex-shrink-0"/>
+                            {item.name}
+                        </li>
+                    ))}
+                </ul>
+            </section>
         )}
         <footer className="w-full text-sm leading-6 mt-8 py-4 border-t border-slate-200 sm:flex justify-between text-slate-500">
             <p>Copyright © 2024 MyFolio.</p>
