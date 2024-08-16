@@ -19,6 +19,7 @@ import { CopyLinkModal } from '../_components/modal';
 export default function Page(){
   const [mobileView,setMobileView] = useState(false);
   const [viewModal,setViewModal] = useState(false);
+  const [link,setLink] = useState("");
   const {register,handleSubmit,formState: {errors},control,watch} = useForm<Portfolio>({
     resolver: zodResolver(PortfolioSchema),
   });
@@ -54,9 +55,22 @@ export default function Page(){
     control
   })
 
-  const onSubmit = (data:Portfolio) => {
-    console.log(data)
-    closeModal()
+  const onSubmit = async(data:Portfolio) => {
+    try {
+      const request = await fetch("/api/serialize",{
+        method: "POST",
+        body: JSON.stringify(data),
+        headers: {
+          'Content-Type': 'application/json',
+        }
+      });
+      const result = await request.json();
+      setLink(result.url);
+      closeModal()
+      console.log(result)
+    } catch (error) {
+      console.error("Serialize",error)
+    }
   };
 
   return (
@@ -349,7 +363,7 @@ export default function Page(){
           {!mobileView ? <CiMobile1 className='size-6'/> : <CiDesktop className='size-6'/>}
         </button>
       </section>
-      {viewModal && <CopyLinkModal onClose={closeModal} link='defv'/>}
+      {viewModal && <CopyLinkModal onClose={closeModal} link={link}/>}
     </main>
 )}
 /*
