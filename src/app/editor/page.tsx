@@ -13,6 +13,8 @@ import { Desktop } from "../_components/devices/desktop";
 import { Mobile } from "../_components/devices/mobile";
 import { CopyLinkModal } from "../_components/modal";
 import { Template } from "../_components/template";
+import { EditorFormLabel } from "./components/EditorFormLabel";
+import { EditorSectionHeader } from "./components/EditorSectionHeader";
 
 export default function Page() {
   const [mobileView, setMobileView] = useState(false);
@@ -121,16 +123,10 @@ export default function Page() {
         >
           {/*Personal*/}
           <div className="w-full flex flex-col gap-2 py-4 border">
-            <header className="px-5 flex items-center justify-between">
-              <h2 className="text-sm font-semibold tracking-tight md:text-base">
-                Dados pessoais
-              </h2>
-            </header>
+            <EditorSectionHeader title="Dados pessoais" />
             <div className="px-5 py-2 flex flex-col gap-2">
               <div className="flex flex-col gap-1">
-                <label className="text-xs font-medium text-gray-700">
-                  Nome
-                </label>
+                <EditorFormLabel text="Nome" />
                 <input
                   {...register("personal.name")}
                   className="p-2 border w-full rounded-md border-gray-200 shadow-sm sm:text-sm"
@@ -142,9 +138,7 @@ export default function Page() {
                 )}
               </div>
               <div className="flex flex-col gap-1">
-                <label className="text-xs font-medium text-gray-700">
-                  Título
-                </label>
+                <EditorFormLabel text="Título" />
                 <input
                   {...register("personal.title")}
                   className="p-2 border w-full rounded-md border-gray-200 shadow-sm sm:text-sm"
@@ -156,9 +150,7 @@ export default function Page() {
                 )}
               </div>
               <div className="flex flex-col gap-1">
-                <label className="text-xs font-medium text-gray-700">
-                  Biografia
-                </label>
+                <EditorFormLabel text="Biografia" />
                 <textarea
                   {...register("personal.about")}
                   className="w-full rounded-lg border border-gray-200 align-top shadow-sm sm:text-sm p-2"
@@ -166,9 +158,7 @@ export default function Page() {
                 ></textarea>
               </div>
               <div className="flex flex-col gap-1">
-                <label className="text-xs font-medium text-gray-700">
-                  E-mail
-                </label>
+                <EditorFormLabel text="E-mail" />
                 <input
                   {...register("personal.email")}
                   type="email"
@@ -181,9 +171,7 @@ export default function Page() {
                 )}
               </div>
               <div className="flex flex-col gap-1">
-                <label className="text-xs font-medium text-gray-700">
-                  Endereço
-                </label>
+                <EditorFormLabel text="Endereço" />
                 <input
                   {...register("personal.address")}
                   className="p-2 border w-full rounded-md border-gray-200 shadow-sm sm:text-sm"
@@ -193,10 +181,7 @@ export default function Page() {
           </div>
           {/*Projects*/}
           <div className="w-full flex flex-col gap-2 py-4 border">
-            <header className="px-5 flex items-center justify-between">
-              <h2 className="text-sm font-semibold tracking-tight md:text-base">
-                Projectos
-              </h2>
+            <EditorSectionHeader title="Projectos">
               <button
                 type="button"
                 onClick={() =>
@@ -211,7 +196,7 @@ export default function Page() {
               >
                 <BiPlus className="size-4" />
               </button>
-            </header>
+            </EditorSectionHeader>
             <div className="px-5 divide-y divide-neutral-200 max-h-48 py-2 overflow-y-auto">
               {projects.map((item, index) => (
                 <div key={index} className="py-2">
@@ -233,18 +218,14 @@ export default function Page() {
                     </summary>
                     <div className="group-open:animate-fadeIn mt-2 text-neutral-600 flex flex-col gap-2">
                       <div className="flex flex-col gap-1">
-                        <label className="text-xs font-medium text-gray-700">
-                          Nome
-                        </label>
+                        <EditorFormLabel text="Nome" />
                         <input
                           {...register(`projects.${index}.title`)}
                           className="p-2 border w-full rounded-md border-gray-200 shadow-sm sm:text-sm"
                         />
                       </div>
                       <div className="flex flex-col gap-1">
-                        <label className="text-xs font-medium text-gray-700">
-                          Descrição
-                        </label>
+                        <EditorFormLabel text="Descrição" />
                         <textarea
                           {...register(`projects.${index}.description`)}
                           className="w-full rounded-lg border border-gray-200 align-top shadow-sm sm:text-sm p-2"
@@ -252,18 +233,14 @@ export default function Page() {
                         ></textarea>
                       </div>
                       <div className="flex flex-col gap-1">
-                        <label className="text-xs font-medium text-gray-700">
-                          Link
-                        </label>
+                        <EditorFormLabel text="Link" />
                         <input
                           {...register(`projects.${index}.link`)}
                           className="p-2 border w-full rounded-md border-gray-200 shadow-sm sm:text-sm"
                         />
                       </div>
                       <div className="flex flex-col gap-1">
-                        <label className="text-xs font-medium text-gray-700">
-                          Tecnologias (separado por vírgula)
-                        </label>
+                        <EditorFormLabel text="Tecnologias (separado por vírgula)" />
                         <input
                           {...register(`projects.${index}.techs`)}
                           className="p-2 border w-full rounded-md border-gray-200 shadow-sm sm:text-sm"
@@ -277,10 +254,7 @@ export default function Page() {
           </div>
           {/*Skills*/}
           <div className="w-full flex flex-col gap-2 py-4 border">
-            <header className="px-5 flex items-center justify-between">
-              <h2 className="text-sm font-semibold tracking-tight md:text-base">
-                Habilidades
-              </h2>
+            <EditorSectionHeader title="Habilidades">
               <button
                 type="button"
                 onClick={() => appendSkill({ name: "" })}
@@ -288,16 +262,14 @@ export default function Page() {
               >
                 <BiPlus className="size-4" />
               </button>
-            </header>
+            </EditorSectionHeader>
             <div className="px-5 divide-y divide-neutral-200 max-h-48 py-2 overflow-y-auto">
               {skills.map((item, index) => (
                 <div
                   key={index}
                   className="py-4 text-neutral-600 flex flex-col gap-1"
                 >
-                  <label className="text-xs font-medium text-gray-700">
-                    Habilidade
-                  </label>
+                  <EditorFormLabel text="Habilidade" />
                   <div className="flex items-center gap-2">
                     <input
                       {...register(`skills.${index}.name`)}
@@ -317,10 +289,7 @@ export default function Page() {
           </div>
           {/*Experiences*/}
           <div className="w-full flex flex-col gap-2 py-4 border">
-            <header className="px-5 flex items-center justify-between">
-              <h2 className="text-sm font-semibold tracking-tight md:text-base">
-                Experiências
-              </h2>
+            <EditorSectionHeader title="Experiências">
               <button
                 type="button"
                 onClick={() =>
@@ -336,7 +305,7 @@ export default function Page() {
               >
                 <BiPlus className="size-4" />
               </button>
-            </header>
+            </EditorSectionHeader>
             <div className="px-5 divide-y divide-neutral-200 max-h-48 py-2 overflow-y-auto">
               {experiences.map((item, index) => (
                 <div key={index} className="py-4">
@@ -358,36 +327,28 @@ export default function Page() {
                     </summary>
                     <div className="group-open:animate-fadeIn mt-2 text-neutral-600 flex flex-col gap-2">
                       <div className="flex flex-col gap-1">
-                        <label className="text-xs font-medium text-gray-700">
-                          Cargo
-                        </label>
+                        <EditorFormLabel text="Cargo" />
                         <input
                           {...register(`experiences.${index}.title`)}
                           className="p-2 border w-full rounded-md border-gray-200 shadow-sm sm:text-sm"
                         />
                       </div>
                       <div className="flex flex-col gap-1">
-                        <label className="text-xs font-medium text-gray-700">
-                          Empresa
-                        </label>
+                        <EditorFormLabel text="Empresa" />
                         <input
                           {...register(`experiences.${index}.company`)}
                           className="p-2 border w-full rounded-md border-gray-200 shadow-sm sm:text-sm"
                         />
                       </div>
                       <div className="flex flex-col gap-1">
-                        <label className="text-xs font-medium text-gray-700">
-                          Local
-                        </label>
+                        <EditorFormLabel text="Local" />
                         <input
                           {...register(`experiences.${index}.location`)}
                           className="p-2 border w-full rounded-md border-gray-200 shadow-sm sm:text-sm"
                         />
                       </div>
                       <div className="flex flex-col gap-1">
-                        <label className="text-xs font-medium text-gray-700">
-                          Data de início
-                        </label>
+                        <EditorFormLabel text="Data de início" />
                         <input
                           {...register(`experiences.${index}.start_date`)}
                           type="month"
@@ -395,9 +356,7 @@ export default function Page() {
                         />
                       </div>
                       <div className="flex flex-col gap-1">
-                        <label className="text-xs font-medium text-gray-700">
-                          Data de término
-                        </label>
+                        <EditorFormLabel text="Data de término" />
                         <input
                           {...register(`experiences.${index}.end_date`)}
                           type="month"
@@ -405,9 +364,7 @@ export default function Page() {
                         />
                       </div>
                       <div className="flex flex-col gap-1">
-                        <label className="text-xs font-medium text-gray-700">
-                          Responsabilidades (separado por vírgula)
-                        </label>
+                        <EditorFormLabel text="Responsabilidades (separado por vírgula)" />
                         <textarea
                           {...register(`experiences.${index}.responsibilities`)}
                           className="w-full rounded-lg border border-gray-200 align-top shadow-sm sm:text-sm p-2"
@@ -422,10 +379,7 @@ export default function Page() {
           </div>
           {/*Certificações*/}
           <div className="w-full flex flex-col gap-2 py-4 border">
-            <header className="px-5 flex items-center justify-between">
-              <h2 className="text-sm font-semibold tracking-tight md:text-base">
-                Certificações
-              </h2>
+            <EditorSectionHeader title="Certificações">
               <button
                 type="button"
                 onClick={() =>
@@ -435,7 +389,7 @@ export default function Page() {
               >
                 <BiPlus className="size-4" />
               </button>
-            </header>
+            </EditorSectionHeader>
             <div className="px-5 divide-y divide-neutral-200 max-h-48 py-2 overflow-y-auto">
               {certifications.map((item, index) => (
                 <div key={index} className="py-4">
@@ -457,27 +411,21 @@ export default function Page() {
                     </summary>
                     <div className="group-open:animate-fadeIn mt-2 text-neutral-600 flex flex-col gap-2">
                       <div className="flex flex-col gap-1">
-                        <label className="text-xs font-medium text-gray-700">
-                          Título
-                        </label>
+                        <EditorFormLabel text="Título" />
                         <input
                           {...register(`certifications.${index}.title`)}
                           className="p-2 border w-full rounded-md border-gray-200 shadow-sm sm:text-sm"
                         />
                       </div>
                       <div className="flex flex-col gap-1">
-                        <label className="text-xs font-medium text-gray-700">
-                          Entidade
-                        </label>
+                        <EditorFormLabel text="Entidade" />
                         <input
                           {...register(`certifications.${index}.provider`)}
                           className="p-2 border w-full rounded-md border-gray-200 shadow-sm sm:text-sm"
                         />
                       </div>
                       <div className="flex flex-col gap-1">
-                        <label className="text-xs font-medium text-gray-700">
-                          Data de emissão
-                        </label>
+                        <EditorFormLabel text="Data de emissão" />
                         <input
                           {...register(`certifications.${index}.date`)}
                           type="month"
@@ -492,10 +440,7 @@ export default function Page() {
           </div>
           {/*Contacts*/}
           <div className="w-full flex flex-col gap-2 py-4 border">
-            <header className="px-5 flex items-center justify-between">
-              <h2 className="text-sm font-semibold tracking-tight md:text-base">
-                Contactos
-              </h2>
+            <EditorSectionHeader title="Contactos">
               <button
                 type="button"
                 onClick={() => appendContact({ type: Social[0], link: "" })}
@@ -503,7 +448,7 @@ export default function Page() {
               >
                 <BiPlus className="size-4" />
               </button>
-            </header>
+            </EditorSectionHeader>
             <div className="px-5 divide-y divide-neutral-200 max-h-48 py-2 overflow-y-auto">
               {contacts.map((item, index) => (
                 <div key={item.id} className="py-4">
@@ -540,9 +485,7 @@ export default function Page() {
                         </select>
                       </div>
                       <div className="flex flex-col gap-1">
-                        <label className="text-xs font-medium text-gray-700">
-                          URL
-                        </label>
+                        <EditorFormLabel text="URL" />
                         <input
                           {...register(`contacts.${index}.link`)}
                           type="url"
@@ -557,10 +500,7 @@ export default function Page() {
           </div>
           {/*Languages*/}
           <div className="w-full flex flex-col gap-2 py-4 border">
-            <header className="px-5 flex items-center justify-between">
-              <h2 className="text-sm font-semibold tracking-tight md:text-base">
-                Idiomas
-              </h2>
+            <EditorSectionHeader title="Idiomas">
               <button
                 type="button"
                 onClick={() => appendLanguage({ name: "" })}
@@ -568,16 +508,15 @@ export default function Page() {
               >
                 <BiPlus className="size-4" />
               </button>
-            </header>
+            </EditorSectionHeader>
             <div className="px-5 divide-y divide-neutral-200 max-h-48 py-2 overflow-y-auto">
               {languages.map((item, index) => (
                 <div
                   key={index}
                   className="py-4 text-neutral-600 flex flex-col gap-1"
                 >
-                  <label className="text-xs font-medium text-gray-700">
-                    Idioma
-                  </label>
+                  <EditorFormLabel text="Idioma" />
+
                   <div className="flex items-center gap-2">
                     <input
                       {...register(`languages.${index}.name`)}
