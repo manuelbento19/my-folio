@@ -1,36 +1,63 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# MyFolio
+ 
+![Resultado final do projecto](./public/preview.png)
 
-## Getting Started
+**MyFolio** é um projeto que permite criar portfólios personalizados sem precisar de habilidades de codificação. Com uma interface intuitiva, você pode facilmente montar um site profissional, adicionar seu trabalho e destacar suas habilidades de forma rápida e simples. Ideal para quem busca uma solução prática e elegante para exibir sua criatividade.
 
-First, run the development server:
+## 🛠️ Tecnologias Utilizadas
+- Next.js
+- React.js
+- TailwindCSS
+- Zod
+- React Hook Form
+- Hook Resolver
+- React Icons
+
+## 🚀 Começando
+
+### 1. Clonar o Repositório
+
+Clone este repositório para sua máquina local:
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone https://github.com/manuelbento19/my-folio.git
+cd my-folio
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 2. Instalar Dependências
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Instale as dependências do projeto com npm ou yarn:
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+```bash
+npm install
+```
 
-## Learn More
+ou
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+yarn install
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### 3. Executar o Projeto
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+Para iniciar o servidor de desenvolvimento, use o comando:
 
-## Deploy on Vercel
+```bash
+npm start
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+ou
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+```bash
+yarn start
+```
+
+Abra seu navegador e vá para `http://localhost:3000` para ver o aplicativo em ação.
+
+## 🤝 Contribuindo
+
+Contribuições são bem-vindas! Se você deseja contribuir para o projeto, por favor, abra um pull request ou envie um problema (issue) para discussão.
+
+## 📝 Licença
+
+Este projeto está licenciado sob a [MIT License](LICENSE).
