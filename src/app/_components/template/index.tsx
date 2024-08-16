@@ -1,8 +1,9 @@
 import { SOCIAIS } from '@/helpers/constants';
 import { Portfolio, Social   } from '@/helpers/types';
 import React from 'react';
-import { FaBusinessTime, FaCheckCircle, FaGithub, FaLink,FaMoon } from 'react-icons/fa';
+import { FaBusinessTime, FaCheckCircle, FaLink,FaMoon } from 'react-icons/fa';
 import { IoBusiness } from 'react-icons/io5';
+import Footer from '../footer';
 
 const links = [
     {
@@ -33,7 +34,7 @@ type Props = {
 
 export const Template = ({portfolio}:Props) => {
   return (
-    <section className="h-full max-w-4xl mx-auto w-full px-2 md:px-4 relative">
+    <section className="h-full max-w-4xl mx-auto w-full px-2 md:px-4 relative flex flex-col">
         <header className="bg-white w-full flex h-20 items-center justify-between sticky top-0 px-3">
             <a className="text-2xl font-semibold" href="#">🚀MyFolio</a>
             <nav className="flex items-center gap-8">
@@ -49,6 +50,7 @@ export const Template = ({portfolio}:Props) => {
                 </button>
             </nav>
         </header>
+        <div className='flex-1'>
         <section id='' className="mb-8 pt-6 pb-5">
             {portfolio?.personal?.name && <h1 className="text-3xl font-bold mb-2">{portfolio?.personal?.name}</h1>}
             {portfolio?.personal?.title && (
@@ -156,12 +158,8 @@ export const Template = ({portfolio}:Props) => {
                 </ul>
             </section>
         )}
-        <footer className="w-full text-sm leading-6 mt-8 py-4 border-t border-slate-200 sm:flex justify-between text-slate-500">
-            <p>Copyright © 2024 MyFolio.</p>
-            <a href="https://github.com/manuelbento19" className="hover:text-slate-500">
-                <FaGithub className='size-5'/>
-            </a>
-        </footer>
+        </div>
+        <Footer/>
     </section>
   );
 };

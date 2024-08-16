@@ -1,8 +1,9 @@
 import React from 'react';
 import { Template } from '../_components/template';
-import { notFound, useSearchParams } from 'next/navigation';
+import { notFound } from 'next/navigation';
 import { Portfolio } from '@/helpers/types';
 import { Serializer } from '@/helpers/serializer';
+import { Metadata } from 'next';
 
 type Props = {
   searchParams: {
@@ -10,16 +11,28 @@ type Props = {
   }
 }
 
+export async function generateMetadata({ searchParams }: Props): Promise<Metadata> {
+  const portfolio:Portfolio = Serializer.decode(JSON.stringify(searchParams?.data));
+  if(!portfolio) return {}
+
+  return {
+    title: `${portfolio?.personal?.name} - MyFolio`,
+    openGraph: {
+      siteName: "MyFoli",
+      type: "website",
+      title: `${portfolio?.personal?.name} - MyFolio`,
+    },
+  };
+}
+
 export default function Page({searchParams}: Props){
-    if(!searchParams?.data) return notFound();
+  if(!searchParams?.data) return notFound();
 
-    const portfolio:Portfolio = Serializer.decode(JSON.stringify(searchParams.data));
-    if(!portfolio)
-    return notFound();
+  const portfolio:Portfolio = Serializer.decode(JSON.stringify(searchParams.data));
+  if(!portfolio)
+  return notFound();
 
-    console.log(portfolio)
-    
-    return (
+  return (
     <main className='w-full h-screen bg-white px-2'>
       <Template portfolio={portfolio}/>
     </main>
