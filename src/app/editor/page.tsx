@@ -13,7 +13,10 @@ import { Desktop } from "../_components/devices/desktop";
 import { Mobile } from "../_components/devices/mobile";
 import { CopyLinkModal } from "../_components/modal";
 import { Template } from "../_components/template";
+import { EditorFormMessageError } from "./components/EditorFormErrorMessage";
+import { EditorFormInput } from "./components/EditorFormInput";
 import { EditorFormLabel } from "./components/EditorFormLabel";
+import { EditorFormTextarea } from "./components/EditorFormTextarea";
 import { EditorSectionHeader } from "./components/EditorSectionHeader";
 
 export default function Page() {
@@ -127,55 +130,38 @@ export default function Page() {
             <div className="px-5 py-2 flex flex-col gap-2">
               <div className="flex flex-col gap-1">
                 <EditorFormLabel text="Nome" />
-                <input
-                  {...register("personal.name")}
-                  className="p-2 border w-full rounded-md border-gray-200 shadow-sm sm:text-sm"
-                />
+                <EditorFormInput {...register("personal.name")} />
                 {errors.personal?.name && (
-                  <span className="text-xs text-red-500">
-                    {errors.personal.name.message}
-                  </span>
+                  <EditorFormMessageError
+                    message={errors.personal.name.message}
+                  />
                 )}
               </div>
               <div className="flex flex-col gap-1">
                 <EditorFormLabel text="Título" />
-                <input
-                  {...register("personal.title")}
-                  className="p-2 border w-full rounded-md border-gray-200 shadow-sm sm:text-sm"
-                />
+                <EditorFormInput {...register("personal.title")} />
                 {errors.personal?.title && (
-                  <span className="text-xs text-red-500">
-                    {errors.personal?.title.message}
-                  </span>
+                  <EditorFormMessageError
+                    message={errors.personal.title.message}
+                  />
                 )}
               </div>
               <div className="flex flex-col gap-1">
                 <EditorFormLabel text="Biografia" />
-                <textarea
-                  {...register("personal.about")}
-                  className="w-full rounded-lg border border-gray-200 align-top shadow-sm sm:text-sm p-2"
-                  rows={4}
-                ></textarea>
+                <EditorFormTextarea {...register("personal.about")} rows={4} />
               </div>
               <div className="flex flex-col gap-1">
                 <EditorFormLabel text="E-mail" />
-                <input
-                  {...register("personal.email")}
-                  type="email"
-                  className="p-2 border w-full rounded-md border-gray-200 shadow-sm sm:text-sm"
-                />
+                <EditorFormInput {...register("personal.email")} type="email" />
                 {errors.personal?.email && (
-                  <span className="text-xs text-red-500">
-                    {errors.personal.email.message}
-                  </span>
+                  <EditorFormMessageError
+                    message={errors.personal.email.message}
+                  />
                 )}
               </div>
               <div className="flex flex-col gap-1">
                 <EditorFormLabel text="Endereço" />
-                <input
-                  {...register("personal.address")}
-                  className="p-2 border w-full rounded-md border-gray-200 shadow-sm sm:text-sm"
-                />
+                <EditorFormInput {...register("personal.address")} />
               </div>
             </div>
           </div>
@@ -219,31 +205,27 @@ export default function Page() {
                     <div className="group-open:animate-fadeIn mt-2 text-neutral-600 flex flex-col gap-2">
                       <div className="flex flex-col gap-1">
                         <EditorFormLabel text="Nome" />
-                        <input
+                        <EditorFormInput
                           {...register(`projects.${index}.title`)}
-                          className="p-2 border w-full rounded-md border-gray-200 shadow-sm sm:text-sm"
                         />
                       </div>
                       <div className="flex flex-col gap-1">
                         <EditorFormLabel text="Descrição" />
-                        <textarea
+                        <EditorFormTextarea
                           {...register(`projects.${index}.description`)}
-                          className="w-full rounded-lg border border-gray-200 align-top shadow-sm sm:text-sm p-2"
                           rows={4}
-                        ></textarea>
+                        />
                       </div>
                       <div className="flex flex-col gap-1">
                         <EditorFormLabel text="Link" />
-                        <input
+                        <EditorFormInput
                           {...register(`projects.${index}.link`)}
-                          className="p-2 border w-full rounded-md border-gray-200 shadow-sm sm:text-sm"
                         />
                       </div>
                       <div className="flex flex-col gap-1">
                         <EditorFormLabel text="Tecnologias (separado por vírgula)" />
-                        <input
+                        <EditorFormInput
                           {...register(`projects.${index}.techs`)}
-                          className="p-2 border w-full rounded-md border-gray-200 shadow-sm sm:text-sm"
                         />
                       </div>
                     </div>
@@ -271,10 +253,7 @@ export default function Page() {
                 >
                   <EditorFormLabel text="Habilidade" />
                   <div className="flex items-center gap-2">
-                    <input
-                      {...register(`skills.${index}.name`)}
-                      className="p-2 border w-full rounded-md border-gray-200 shadow-sm sm:text-sm"
-                    />
+                    <EditorFormInput {...register(`skills.${index}.name`)} />
                     <button
                       onClick={() => removeSkill(Number(item.id))}
                       type="button"
@@ -328,48 +307,42 @@ export default function Page() {
                     <div className="group-open:animate-fadeIn mt-2 text-neutral-600 flex flex-col gap-2">
                       <div className="flex flex-col gap-1">
                         <EditorFormLabel text="Cargo" />
-                        <input
+                        <EditorFormInput
                           {...register(`experiences.${index}.title`)}
-                          className="p-2 border w-full rounded-md border-gray-200 shadow-sm sm:text-sm"
                         />
                       </div>
                       <div className="flex flex-col gap-1">
                         <EditorFormLabel text="Empresa" />
-                        <input
+                        <EditorFormInput
                           {...register(`experiences.${index}.company`)}
-                          className="p-2 border w-full rounded-md border-gray-200 shadow-sm sm:text-sm"
                         />
                       </div>
                       <div className="flex flex-col gap-1">
                         <EditorFormLabel text="Local" />
-                        <input
+                        <EditorFormInput
                           {...register(`experiences.${index}.location`)}
-                          className="p-2 border w-full rounded-md border-gray-200 shadow-sm sm:text-sm"
                         />
                       </div>
                       <div className="flex flex-col gap-1">
                         <EditorFormLabel text="Data de início" />
-                        <input
+                        <EditorFormInput
                           {...register(`experiences.${index}.start_date`)}
                           type="month"
-                          className="p-2 border w-full rounded-md border-gray-200 shadow-sm sm:text-sm"
                         />
                       </div>
                       <div className="flex flex-col gap-1">
                         <EditorFormLabel text="Data de término" />
-                        <input
+                        <EditorFormInput
                           {...register(`experiences.${index}.end_date`)}
                           type="month"
-                          className="p-2 border w-full rounded-md border-gray-200 shadow-sm sm:text-sm"
                         />
                       </div>
                       <div className="flex flex-col gap-1">
                         <EditorFormLabel text="Responsabilidades (separado por vírgula)" />
-                        <textarea
+                        <EditorFormTextarea
                           {...register(`experiences.${index}.responsibilities`)}
-                          className="w-full rounded-lg border border-gray-200 align-top shadow-sm sm:text-sm p-2"
                           rows={4}
-                        ></textarea>
+                        />
                       </div>
                     </div>
                   </details>
@@ -412,24 +385,21 @@ export default function Page() {
                     <div className="group-open:animate-fadeIn mt-2 text-neutral-600 flex flex-col gap-2">
                       <div className="flex flex-col gap-1">
                         <EditorFormLabel text="Título" />
-                        <input
+                        <EditorFormInput
                           {...register(`certifications.${index}.title`)}
-                          className="p-2 border w-full rounded-md border-gray-200 shadow-sm sm:text-sm"
                         />
                       </div>
                       <div className="flex flex-col gap-1">
                         <EditorFormLabel text="Entidade" />
-                        <input
+                        <EditorFormInput
                           {...register(`certifications.${index}.provider`)}
-                          className="p-2 border w-full rounded-md border-gray-200 shadow-sm sm:text-sm"
                         />
                       </div>
                       <div className="flex flex-col gap-1">
                         <EditorFormLabel text="Data de emissão" />
-                        <input
+                        <EditorFormInput
                           {...register(`certifications.${index}.date`)}
                           type="month"
-                          className="p-2 border w-full rounded-md border-gray-200 shadow-sm sm:text-sm"
                         />
                       </div>
                     </div>
@@ -486,10 +456,9 @@ export default function Page() {
                       </div>
                       <div className="flex flex-col gap-1">
                         <EditorFormLabel text="URL" />
-                        <input
+                        <EditorFormInput
                           {...register(`contacts.${index}.link`)}
                           type="url"
-                          className="p-2 border w-full rounded-md border-gray-200 shadow-sm sm:text-sm"
                         />
                       </div>
                     </div>
@@ -516,12 +485,8 @@ export default function Page() {
                   className="py-4 text-neutral-600 flex flex-col gap-1"
                 >
                   <EditorFormLabel text="Idioma" />
-
                   <div className="flex items-center gap-2">
-                    <input
-                      {...register(`languages.${index}.name`)}
-                      className="p-2 border w-full rounded-md border-gray-200 shadow-sm sm:text-sm"
-                    />
+                    <EditorFormInput {...register(`languages.${index}.name`)} />
                     <button
                       onClick={() => removeLanguage(Number(item.id))}
                       type="button"
