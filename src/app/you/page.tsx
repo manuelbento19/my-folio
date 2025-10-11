@@ -1,9 +1,8 @@
-import React from "react";
-import { Template } from "../_components/template";
-import { notFound } from "next/navigation";
-import { Portfolio } from "@/helpers/types";
 import { Serializer } from "@/helpers/serializer";
+import { Portfolio } from "@/helpers/types";
 import { Metadata } from "next";
+import { notFound } from "next/navigation";
+import { Template } from "../_components/template";
 
 type Props = {
   searchParams: {
@@ -22,7 +21,7 @@ export async function generateMetadata({
   return {
     title: `${portfolio?.personal?.name} - MyFolio`,
     openGraph: {
-      siteName: "MyFoli",
+      siteName: "MyFolio",
       type: "website",
       title: `${portfolio?.personal?.name} - MyFolio`,
     },
