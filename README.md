@@ -1,4 +1,4 @@
-# MyFolio
+# MyFolio - Old version
  
 ![Resultado final do projecto](./public/preview.png)
 
